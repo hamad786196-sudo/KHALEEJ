@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KHALEEJ GAMES</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#090909;color:#fff;
+  font-family:Arial,sans-serif
+}
+header{
+  padding:20px 7%;display:flex;
+  justify-content:space-between;align-items:center;
+  border-bottom:1px solid #b88b27
+}
+.logo{color:#e9b83f;font-size:24px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:0 10px}
+.hero{
+  padding:70px 20px;text-align:center;
+  background:linear-gradient(135deg,#171717,#30230b)
+}
+.hero h1{font-size:42px;color:#f3c44e}
+.hero p{color:#ccc;font-size:18px}
+button{
+  background:#e6b43d;color:#111;border:0;
+  padding:13px 25px;border-radius:10px;
+  font-size:16px;font-weight:bold;cursor:pointer
+}
+.games{
+  padding:35px 7%;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px
+}
+.card{
+  background:#171717;border:1px solid #5b4519;
+  border-radius:15px;padding:25px;text-align:center
+}
+.card .emoji{font-size:55px}
+.card h2{color:#e9b83f}
+#game{
+  display:none;text-align:center;
+  margin:20px auto;padding:25px;
+  max-width:500px;background:#171717;
+  border:1px solid #d6a832;border-radius:15px
+}
+#star{font-size:65px;cursor:pointer;margin:20px}
+footer{text-align:center;padding:25px;color:#999}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">👑 KHALEEJ GAMES</div>
+  <nav>
+    <a href="#games">الألعاب</a>
+    <a href="#about">عن المنصة</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>مرحبًا بك في KHALEEJ GAMES</h1>
+  <p>عالم من الألعاب والمتعة والتحديات</p>
+  <button onclick="document.getElementById('games').scrollIntoView()">
+    ابدأ اللعب 🎮
+  </button>
+</section>
+
+<section class="games" id="games">
+  <div class="card">
+    <div class="emoji">⭐</div>
+    <h2>اجمع النجوم</h2>
+    <p>اضغط على النجمة واجمع أكبر عدد من النقاط!</p>
+    <button onclick="startGame()">العب الآن</button>
+  </div>
+
+  <div class="card">
+    <div class="emoji">🏎️</div>
+    <h2>سباقات الخليج</h2>
+    <p>قريبًا: تحديات سباق السيارات.</p>
+    <button onclick="alert('لعبة السباق قيد التطوير!')">قريبًا</button>
+  </div>
+
+  <div class="card">
+    <div class="emoji">🌆</div>
+    <h2>KHALEEJ RP</h2>
+    <p>عش حياة واقعية في مدينة الخليج.</p>
+    <button onclick="alert('مدينة الخليج قيد التطوير!')">قريبًا</button>
+  </div>
+</section>
+
+<section id="game">
+  <h2>⭐ اجمع النجوم</h2>
+  <p>النقاط: <span id="score">0</span></p>
+  <p>الوقت: <span id="time">20</span> ثانية</p>
+  <div id="star" onclick="collect()">⭐</div>
+  <p id="message">اضغط النجمة بسرعة!</p>
+</section>
+
+<footer id="about">
+  KHALEEJ GAMES © 2026
+</footer>
+
+<script>
+let score=0,time=20,timer;
+
+function startGame(){
+  score=0;time=20;
+  document.getElementById('score').textContent=score;
+  document.getElementById('time').textContent=time;
+  document.getElementById('message').textContent='اضغط النجمة بسرعة!';
+  document.getElementById('game').style.display='block';
+  document.getElementById('game').scrollIntoView();
+  clearInterval(timer);
+
+  timer=setInterval(()=>{
+    time--;
+    document.getElementById('time').textContent=time;
+    if(time<=0){
+      clearInterval(timer);
+      document.getElementById('message').textContent=
+        'انتهى الوقت! مجموع نقاطك: '+score;
+    }
+  },1000);
+}
+
+function collect(){
+  if(time<=0)return;
+  score++;
+  document.getElementById('score').textContent=score;
+  document.getElementById('star').style.transform=
+    'scale('+ (0.8+Math.random()*0.5) +')';
+}
+</script>
+
+</body>
+</html>
